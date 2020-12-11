@@ -1,0 +1,55 @@
+gst-launch-1.0 filesrc location=300hzSineTone.raw ! rawaudioparse use-sink-caps=false format=pcm pcm-format=s16le sample-rate=860 num-channels=1 ! audioconvert ! audioresample ! alsasink
+
+
+The sine tone should be played through the aux cord
+the sine tone I used can be found at 
+https://youtu.be/GIBWzWYXuCM
+"300 hz sine Tone Amplitude 1"
+
+*****notes for next time
+Got the gstreamer to stream premade raw audio file
+however, the stream is either extremely short or the audio file is cut short
+
+STREAM IS CUT SHORT BC OF FLOATING POINT ERROR? 
+
+Also eventually: add c code to activate the python code to run the adc
+(can just do this by running the c code I wrote) 
+
+So I think the rawaudioparse is reading my file wrong as well
+We are inputing raw text but rawaudioparse is expecting 
+signed 16bit little-endian
+
+perhaps i can convert my data to signed 16bit little-endian
+
+******************** compiling the test c file
+gcc BashScriptRunPython.c -o BashCrunPython
+
+******************** HOW TO COMPILE Jasons_ADCtoGstreamer_client.c
+Need to make sure you are using the systems version of python in pyenv
+Or whatever version you ./install.sh on 
+
+gcc -Wall Jasons_ADCtoGstreamer_client.c -o Jasons_ADCtoG_CLIENT -lpthread $(pkg-config --cflags --libs gstreamer-1.0)
+
+******************** Tracking changes made to Ronnies code
+1. the audio src and sink are changed to alsasrc and alsasink
+
+2. at line 1027: 
+	a) I changed audiosource to filesrc so I can use the raw output from adc as source
+	b) I changed rate in caps to 860 
+
+*Note seems the g729 encoder needs an inputfile of
+*8khz sampled 16 bit PCM (binary)
+
+	c) Changed data rate back to 8000
+	d) added rawaudioparse 
+
+*********************Errors:
+
+(Jasons_ADCtoG_CLIENT:14952): GLib-GObject-WARNING **: 09:03:50.111: value "TRUE" of type 'gboolean' is invalid or out of range for property 'use-sink-caps' of type 'gboolean'
+
+(Jasons_ADCtoG_CLIENT:14952): GLib-GObject-WARNING **: 09:03:50.113: value "((GstRawAudioParseFormat) 83388)" of type 'GstRawAudioParseFormat' is invalid or out of range for property 'format' of type 'GstRawAudioParseFormat'
+
+(Jasons_ADCtoG_CLIENT:14952): GLib-GObject-WARNING **: 09:03:50.114: value "((GstAudioFormat) 83368)" of type 'GstAudioFormat' is invalid or out of range for property 'pcm-format' of type 'GstAudioFormat'
+	Now sending to 10.0.0.150:64437 with pipe 0xb5701090
+	G729 SEND Successfully Created!
+

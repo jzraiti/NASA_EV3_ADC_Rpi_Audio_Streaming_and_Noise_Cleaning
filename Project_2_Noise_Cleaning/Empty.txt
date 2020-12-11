@@ -1,1 +1,37 @@
 
+Cannot add deepspeech, rnnoise, or Krisp due to size
+
+For RNNoise:
+from:
+https://github.com/xiph/rnnoise
+
+run program with 
+./examples/rnnoise_demo <number of channels> <maximum attenuation> < input.raw > output.raw
+
+
+For Krisp.ai:
+There is a free version for PC and Mac
+Can test using audacity, play sound file into microphone > change microphone to Krisp.ai microphone
+(there is no command line interface)
+
+
+For Deepspeech:
+from:
+https://github.com/mozilla/DeepSpeech/releases
+
+Need:
+deepspeech-0.8.2-models.pbmm
+deepspeech-0.8.2-models.scorer
+
+from:
+https://github.com/mozilla/DeepSpeech-examples/tree/r0.8/mic_vad_streaming
+
+clone folder
+Install dependencies
+
+
+
+
+
+
+

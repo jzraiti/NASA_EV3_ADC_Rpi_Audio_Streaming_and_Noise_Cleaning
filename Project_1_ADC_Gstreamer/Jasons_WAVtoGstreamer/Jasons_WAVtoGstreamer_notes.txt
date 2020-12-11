@@ -1,0 +1,7 @@
+good luck
+
+
+Compile with:
+gcc -Wall Jasons_WAVtoGstreamer_client.c -o Jasons_WAVtoG_CLIENT -lpthread $(pkg-config --cflags --libs gstreamer-1.0)
+
+
