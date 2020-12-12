@@ -1,0 +1,61 @@
+
+
+Take a peek into these cargo.toml files
+
+Use docker (cargo) to compile folder
+
+run:
+cargo build
+
+*** SUPER USEFUL NOTE HAS APPEARED ***
+To allow GStreamer to find our new plugin and make it available in every GStreamer-based application, we could install it into the system- or user-wide GStreamer plugin path or simply point the GST_PLUGIN_PATH environment variable to the directory containing it:
+export GST_PLUGIN_PATH= something/target/debug (aka path to directory containing the plugins .so file) 
+
+********To build a "cargo" package *********
+you need a Cargo.toml 
+and a corresponding src/lib.rs
+
+This will build everything you need for a gstreamer plugin, including the .so file you need to point to ^^
+
+***rnnoise actual file can be found here***
+https://gitlab.freedesktop.org/philn/gst-plugins-rs
+https://gitlab.freedesktop.org/philn/gst-plugins-rs/-/commit/5d6917424b656912cfd3bd360b377f136545686b#c04b51779c9106bbf8ceef3c11194b0c217878c9
+https://gitlab.freedesktop.org/philn/gst-plugins-rs/-/commits/rnnoise
+
+******* get gst-plugins-rs first before rnnoise-gst-rs package 
+https://github.com/sdroege/gst-plugin-rs
+
+problem for debian 10 vm:
+need:
+sudo apt-get install libssl-dev
+
+Check it out, here is the documentation for rust openssl:
+"
+OPENSSL_DIR - If specified, the directory of an OpenSSL installation. The directory should contain lib and include subdirectories containing the libraries and headers respectively.
+OPENSSL_LIB_DIR and OPENSSL_INCLUDE_DIR - If specified, the directories containing the OpenSSL libraries and headers respectively. This can be used if the OpenSSL installation is split in a nonstandard directory layout.
+OPENSSL_STATIC - If set, the crate will statically link to OpenSSL rather than dynamically link.
+OPENSSL_LIBS - If set, a :-separated list of library names to link to (e.g. ssl:crypto). This can be used if nonstandard library names were used for whatever reason.
+OPENSSL_NO_VENDOR - If set, always find OpenSSL in the system, even if the vendored feature is enabled.
+"
+
+so first check with
+apt-file list libssl-dev
+
+then set
+OPENSSL_INCLUDE_DIR = /usr/include/openssl/
+
+then set
+OPENSSL_LIB_DIR=/usr/lib/i386-linux-gnu/
+
+just a note: CPLUS_INCLUDE_PATH and C_INCLUDE_PATH are not the equivalent of LD_LIBRARY_PATH. LD_LIBRARY_PATH serves the ld (the dynamic linker at runtime) whereas the equivalent of the former two that serves your C/C++ compiler with the location of libraries is LIBRARY_PATH.
+
+So I try:
+export C_INCLUDE_PATH=/usr/include/i386-linux-gnu/
+
+
+
+
+
+
+
+
