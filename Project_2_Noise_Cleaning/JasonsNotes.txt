@@ -1,0 +1,159 @@
+Shhhhhhhhhhhhhhhhhhhhhhhhiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiit 
+
+just wanted to get that out my system
+
+Ok
+
+******** trying to get rust package
+could it be possible to custom edit the cargo file so i can circumvent the problems
+
+
+Take a peek into these cargo.toml files
+Lets fuc em up eh?
+
+
+
+
+
+
+
+
+
+******* get gst-plugins-rs first before rnnoise-gst-rs package 
+https://github.com/sdroege/gst-plugin-rs
+
+need?:
+sudo apt-get install libssl-dev
+
+must add path to 
+/usr/include/i386-linux-gnu/openssl/opensslconf.h
+
+echo $OPENSSL_DIR
+export OPENSSL_DIR=$OPENSSL_DIR:/usr/include/i386-linux-gnu/openssl/opensslconf.h
+
+
+Need?:
+pi@raspberry:~/gst-plugin-rs $ which openssl
+/usr/bin/openssl
+export OPENSSL_DIR=/usr/bin/openssl
+
+Need?:
+Set OPENSSL_DIR = /usr/lib/x86_64-linux-gnu
+OR Set OPENSSL_LIB_DIR = /usr/lib/x86_64-linux-gnu
+
+NEED?:
+export PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig/
+
+Shiz still dont work
+Uh i guess try
+
+pi@raspberry:~/gst-plugin-rs $ export OPENSSL_INCLUDE="/usr/include/openssl"
+pi@raspberry:~/gst-plugin-rs $ export OPENSSL_INCLUDE_DIR="/usr/include/openssl"
+
+OK a little closer: different warning #include 
+warning: build/expando.c:2:10: fatal error: openssl/opensslconf.h: No such file or directory
+warning:  #include <openssl/opensslconf.h>
+
+DEFINITELY NEED:
+OPENSSL_INCLUDE_DIR = /usr/include/openssl:/usr/include/i386-linux-gnu/openssl/opensslconf.h
+
+Heres a possible hint:
+The openssl compilation is failing, maybe use an older version?
+Compiling openssl-sys v0.9.58
+
+SO THIS IS DEFINITELY A PROBLEM, here is the error:
+OPENSSL_DIR = /usr/bin/openssl:/usr/include/i386-linux-gnu/openssl/opensslconf.h
+
+  --- stderr
+  thread 'main' panicked at 'OpenSSL library directory does not exist: /usr/bin/openssl:/usr/include/i386-linux-gnu/openssl/opensslconf.h/lib', /home/pi/.cargo/registry/src/github.com-1ecc6299db9ec823/openssl-sys-0.9.58/build/main.rs:66:9
+
+Check it out, here is the documentation for rust openssl:
+"
+OPENSSL_DIR - If specified, the directory of an OpenSSL installation. The directory should contain lib and include subdirectories containing the libraries and headers respectively.
+OPENSSL_LIB_DIR and OPENSSL_INCLUDE_DIR - If specified, the directories containing the OpenSSL libraries and headers respectively. This can be used if the OpenSSL installation is split in a nonstandard directory layout.
+OPENSSL_STATIC - If set, the crate will statically link to OpenSSL rather than dynamically link.
+OPENSSL_LIBS - If set, a :-separated list of library names to link to (e.g. ssl:crypto). This can be used if nonstandard library names were used for whatever reason.
+OPENSSL_NO_VENDOR - If set, always find OpenSSL in the system, even if the vendored feature is enabled.
+"
+
+so first check with
+apt-file list libssl-dev
+
+then set
+OPENSSL_INCLUDE_DIR = /usr/include/openssl/
+
+then set
+OPENSSL_LIB_DIR=/usr/lib/i386-linux-gnu/
+
+next problem: 
+warning: build/expando.c:2:10: fatal error: openssl/opensslconf.h: No such file or directory
+warning:  #include <openssl/opensslconf.h>
+warning:           ^~~~~~~~~~~~~~~~~~~~~~~
+warning: compilation terminated.
+
+Solution?
+just a note: CPLUS_INCLUDE_PATH and C_INCLUDE_PATH are not the equivalent of LD_LIBRARY_PATH. LD_LIBRARY_PATH serves the ld (the dynamic linker at runtime) whereas the equivalent of the former two that serves your C/C++ compiler with the location of libraries is LIBRARY_PATH.
+
+So I try:
+export C_INCLUDE_PATH=/usr/include/i386-linux-gnu/
+
+SOLVED!!!
+***** NEW ERROR IN CARGO BUILD for gst-plugin-rs
+error: failed to run custom build command for `dav1d-sys v0.3.2`
+
+
+
+
+
+
+*****Trying to install gstreamer-rs
+maybe we gotta try getting gstreamer-rs
+
+pkg-config --libs gtk+-2.0
+
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libgobject-2.0.so when searching for -lgobject-2.0
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libgobject-2.0.a when searching for -lgobject-2.0
+/usr/bin/ld: cannot find -lgobject-2.0
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libgstreamer-1.0.so when searching for -lgstreamer-1.0
+/usr/bin/ld: cannot find -lgstreamer-1.0
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libgobject-2.0.so when searching for -lgobject-2.0
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libgobject-2.0.a when searching for -lgobject-2.0
+/usr/bin/ld: cannot find -lgobject-2.0
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libglib-2.0.so when searching for -lglib-2.0
+/usr/bin/ld: skipping incompatible //usr/lib/i386-linux-gnu/libglib-2.0.a when searching for -lglib-2.0
+
+ok say what, I need to look into these files, they are incompatible because they are 32 bit and the other shiz is 64 bit, maybe I can find the 32 bit versions...
+
+May be easier to try using a different os to make this work? NO
+cant do that, I gotta use this because its the only way to use ronnies
+
+
+********
+
+
+
+https://coaxion.net/blog/2018/01/how-to-write-gstreamer-elements-in-rust-part-1-a-video-filter-for-converting-rgb-to-grayscale/
+
+"We’re depending on the gst-plugin crate, which provides all the basic infrastructure for implementing GStreamer plugins and elements. In addition we depend on the gstreamer, gstreamer-base and gstreamer-video crates for various GStreamer API that we’re going to use later, and the glib crate to be able to use some GLib API that we’ll need. GStreamer is building upon GLib, and this leaks through in various places."
+
+Start building package with
+cargo init -–lib -–name gst-plugin-tutorial
+
+compile the project with 
+cargo build
+
+
+*** SUPER USEFUL NOTE HAS APPEARED ***
+To allow GStreamer to find our new plugin and make it available in every GStreamer-based application, we could install it into the system- or user-wide GStreamer plugin path or simply point the GST_PLUGIN_PATH environment variable to the directory containing it:
+export GST_PLUGIN_PATH= something/target/debug (aka path to directory containing the plugins .so file) 
+
+********To build a "cargo" package *********
+you need a Cargo.toml 
+and a corresponding src/lib.rs
+
+***rnnoise actual file can be found here***s
+https://gitlab.freedesktop.org/philn/gst-plugins-rs
+https://gitlab.freedesktop.org/philn/gst-plugins-rs/-/commit/5d6917424b656912cfd3bd360b377f136545686b#c04b51779c9106bbf8ceef3c11194b0c217878c9
+https://gitlab.freedesktop.org/philn/gst-plugins-rs/-/commits/rnnoise
+
+
