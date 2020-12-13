@@ -32,3 +32,7 @@ If you want to try testing a Raspberrypi microphone use alsasrc.
 
 if you edit C file then compile with:
 gcc -Wall <cfile> -o <compiledfile> -lpthread $(pkg-config --cflags --libs gstreamer-1.0)
+	
+
+
+
