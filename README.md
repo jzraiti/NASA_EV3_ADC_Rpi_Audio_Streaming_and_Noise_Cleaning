@@ -10,10 +10,8 @@
 ## Project 2: Noise_Cleaning
 
 This project was an investigation of noise cleaning softwares using Machine learning.
-Needs:
-Offline Capability
-Lightweight
-Realtime
+###### Needs:
+Offline Capability, Lightweight, Realtime
 
 The softwares reviewed were Krisp.ai and RNNoise.
 
