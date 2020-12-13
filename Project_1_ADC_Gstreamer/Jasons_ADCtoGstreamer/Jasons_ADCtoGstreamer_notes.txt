@@ -28,6 +28,9 @@ gcc BashScriptRunPython.c -o BashCrunPython
 Need to make sure you are using the systems version of python in pyenv
 Or whatever version you ./install.sh on 
 
+gcc -Wall <cfile> -o <compiledfile> -lpthread $(pkg-config --cflags --libs gstreamer-1.0)
+
+eg.
 gcc -Wall Jasons_ADCtoGstreamer_client.c -o Jasons_ADCtoG_CLIENT -lpthread $(pkg-config --cflags --libs gstreamer-1.0)
 
 ******************** Tracking changes made to Ronnies code
