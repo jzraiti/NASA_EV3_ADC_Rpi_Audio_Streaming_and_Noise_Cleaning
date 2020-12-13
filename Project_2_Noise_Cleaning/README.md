@@ -1,6 +1,11 @@
 # Noise Cleaning focused on: RNNoise and Krisp.ai
+In addition:
+I added instructions for how to test both noise cleaning softwares 
+How to use Deepspeech
+How to link Deepspeech and RNNoise to a gstreamer pipeline (should you want to)
 
-Cannot add deepspeech, rnnoise, or Krisp due to size
+Note: Cannot add deepspeech, rnnoise, or Krisp due to size. The audio files were run though the noise cleaning software, 
+but the cleaned files can be found in the shared NASA EV3 Raiti folder
 
 ## For RNNoise:
 from:
