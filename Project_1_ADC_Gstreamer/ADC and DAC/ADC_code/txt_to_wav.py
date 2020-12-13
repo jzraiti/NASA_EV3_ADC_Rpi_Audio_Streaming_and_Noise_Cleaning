@@ -1,11 +1,9 @@
-# Simple demo of continuous ADC conversion mode for channel 0 of the ADS1x15 ADC.
-# Author: Tony DiCola
-# License: Public Domain
 import time
 
 # Import the ADS1x15 module.
 import Adafruit_ADS1x15 as ADS
 
+#Library for making .wav files
 import wave
  
 import struct
