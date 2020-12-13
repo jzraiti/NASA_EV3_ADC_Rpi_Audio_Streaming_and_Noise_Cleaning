@@ -1,4 +1,4 @@
-# Simple demo of continuous ADC conversion mode for channel 0 of the ADS1x15 ADC.
+# Simple demo of continuous ADC differential mode for channel 0 of the ADS1x15 ADC.
 import time
 
 # Import the ADS1x15 module.
