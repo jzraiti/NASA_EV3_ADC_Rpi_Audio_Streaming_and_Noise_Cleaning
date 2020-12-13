@@ -1,6 +1,4 @@
 # Simple demo of continuous ADC conversion mode for channel 0 of the ADS1x15 ADC.
-# Author: Tony DiCola
-# License: Public Domain
 import time
 
 # Import the ADS1x15 module.
@@ -9,23 +7,9 @@ import Adafruit_ADS1x15 as ADS
 
 
 # Create an ADS1115 ADC (16-bit) instance.
-#adc = Adafruit_ADS1x15.ADS1115()
-
-# Or create an ADS1015 ADC (12-bit) instance.
-#adc = Adafruit_ADS1x15.ADS1015()
-
-# Note you can change the I2C address from its default (0x48), and/or the I2C
-# bus by passing in these optional parameters:
-#adc = ADS.ADS1115(address=0x49, busnum=1)
-#adc._data_rate_config(860)
-
+# address is adjusted by grounding address pin !!!
 adc0 = ADS.ADS1115(address=0x49, busnum=1)
 adc0._data_rate_config(860)
-
-#adc1 = ADS.ADS1115(address=0x49, busnum=1)
-#adc1._data_rate_config(860)
-
-#adc = ADS.ADS1115(i2c, gain=1, data_rate=860)
 
 # Choose a gain of 1 for reading voltages from 0 to 4.09V.
 # Or pick a different gain to change the range of voltages that are read:
@@ -38,6 +22,10 @@ adc0._data_rate_config(860)
 # See table 3 in the ADS1015/ADS1115 datasheet for more info on gain.
 GAIN = 16
 
+# Note you can also call start_adc_difference() to take continuous differential
+# readings.  See the read_adc_difference() function in differential.py for more
+# information and parameter description.
+
 # Start continuous ADC conversions on channel 0 using the previously set gain
 # value.  Note you can also pass an optional data_rate parameter, see the simpletest.py
 # example and read_adc function for more infromation.
@@ -48,10 +36,6 @@ except Exception as e: print(e)
 #except Exception as e: print(e)
 # Once continuous ADC conversions are started you can call get_last_result() to
 # retrieve the latest result, or stop_adc() to stop conversions.
-
-# Note you can also call start_adc_difference() to take continuous differential
-# readings.  See the read_adc_difference() function in differential.py for more
-# information and parameter description.
 
 # Read channel 0 for 5 seconds and print out its values.
 print('Reading ADS1x15 channel 0 for 1 seconds...')
@@ -65,15 +49,11 @@ while (time.time() - start) <= 60.0:
     try: value0 = adc0.read_adc_difference(1, gain=GAIN, data_rate = 860)
     except Exception as e: print(e)
     
-    #try: value1 = adc1.get_last_result()
-    #except Exception as e: print(e)
     # WARNING! If you try to read any other ADC channel during this continuous
     # conversion (like by calling read_adc again) it will disable the
     # continuous conversion!
     
     print('Channel 0: {0}'.format(value0), hex(value0))
-    #TrueValue = adc.read_adc_difference(0, gain=GAIN)
-    #print('Channel 0 - 1: {0}'.format(value0), hex(value0))
     
 
     #raw_data.append(value0)
