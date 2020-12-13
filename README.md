@@ -7,16 +7,13 @@ Test Ronnies Gstreamer G.729 pipline for Raspberry Pi
 
 
 
-
-
-
 ## Project 2: Noise_Cleaning
 
 This project was an investigation of noise cleaning softwares using Machine learning.
 The softwares reviewed were Krisp.ai and RNNoise.
+These fulfilled: Offline Capability, Lightweight, Realtime
 
-###### Needs:
-###### Offline Capability, Lightweight, Realtime
+
 
 
 
