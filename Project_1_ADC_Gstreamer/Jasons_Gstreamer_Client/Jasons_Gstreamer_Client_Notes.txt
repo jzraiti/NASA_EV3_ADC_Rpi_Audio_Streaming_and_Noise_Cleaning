@@ -3,6 +3,8 @@ So github would not upload the g729_plugin
 I think the best way would be to use Ronnies code to install his G_CLIENT
 (This file here is an edited version of the gstreamer_client that Ronnie's code makes)
 
+if you edit C file then compile with:
+gcc -Wall <cfile> -o <compiledfile> -lpthread $(pkg-config --cflags --libs gstreamer-1.0)
 
 
 
