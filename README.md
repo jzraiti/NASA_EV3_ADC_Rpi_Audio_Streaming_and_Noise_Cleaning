@@ -9,13 +9,13 @@
 
 ## Project 2: Noise_Cleaning
 
-The audio files were run though the noise cleaning software. The cleaned files can be found in the shared NASA EV3 Raiti folder
+This project was an investigation of noise cleaning softwares using Machine learning.
+Needs:
+Offline Capability
+Lightweight
+Realtime
 
-In addition:
-I added instructions for how to test both noise cleaning softwares 
-How to use Deepspeech
-How to link Deepspeech and RNNoise to a gstreamer pipeline (should you want to)
-
+The softwares reviewed were Krisp.ai and RNNoise.
 
 
 
