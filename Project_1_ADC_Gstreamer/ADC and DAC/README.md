@@ -31,7 +31,7 @@ External VREF (V) (min)		2.3
 External VREF (V) (max)		2.7
 Bipolar VIN (±V) (max)		2.2
 
-Teensy 4.0 and audio shield: 
+Teensy 4.0 and audio shield: 45$
 
 https://www.adafruit.com/product/4323
 
