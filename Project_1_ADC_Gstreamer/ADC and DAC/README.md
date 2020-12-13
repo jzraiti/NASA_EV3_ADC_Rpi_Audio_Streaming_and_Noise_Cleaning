@@ -15,7 +15,9 @@ Here are edited files for testing different methods of calling the ADC (ADS1115)
 ## ALTERNATE HARDWARES:
 
 Maxim adc and dev board: $157.50
+
 https://www.maximintegrated.com/en/products/analog/data-converters/analog-to-digital-converters/MAX11060.html?intcid=para
+
 https://www.maximintegrated.com/en/products/analog/data-converters/analog-to-digital-converters/MAX11040KEVKIT.html
 
 Resolution (bits) (ADC)		16
@@ -30,7 +32,9 @@ External VREF (V) (max)		2.7
 Bipolar VIN (±V) (max)		2.2
 
 Teensy 4.0 and audio shield: 
+
 https://www.adafruit.com/product/4323
+
 https://www.adafruit.com/product/4384
 
 ARM Cortex-M7 at 600 MHz
