@@ -1,8 +1,8 @@
-#Noise Cleaning focused on: RNNoise and Krisp.ai
+# Noise Cleaning focused on: RNNoise and Krisp.ai
 
 Cannot add deepspeech, rnnoise, or Krisp due to size
 
-##For RNNoise:
+## For RNNoise:
 from:
 https://github.com/xiph/rnnoise
 
@@ -23,13 +23,13 @@ Rnnoise also runs as part of a gstreamer pipeline...
 You will need Rust and Docker (cargo) for this
 
 
-##For Krisp.ai:
+## For Krisp.ai:
 There is a free version for PC and Mac
 Can test using audacity, play sound file into microphone > change microphone to Krisp.ai microphone
 (there is no command line interface)
 
 
-######For Deepspeech:
+###### For Deepspeech:
 This is a demonstration of deepspeech's realtime transcription
 from:
 https://github.com/mozilla/DeepSpeech/releases
