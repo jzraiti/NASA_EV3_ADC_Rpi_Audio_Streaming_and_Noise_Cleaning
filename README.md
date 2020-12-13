@@ -2,6 +2,9 @@
 
 ## Project 1: ADC_Gstreamer
 
+Test analog to digital converter and digital to analog converter
+Test Ronnies Gstreamer G.729 pipline for Raspberry Pi
+
 
 
 
