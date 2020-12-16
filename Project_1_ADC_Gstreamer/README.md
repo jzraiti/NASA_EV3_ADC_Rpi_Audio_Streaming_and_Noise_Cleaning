@@ -21,9 +21,11 @@ Install Gstreamer... this step can be done via ronnies code which will also buil
 
 ## NASA_EV3_Audio_Streaming-master
 
-Here are edited versions of Ronnies gstreamer pipeline. Should have same dependencies
+Ronnies original project. Here for ease of access and because it would be good to familiarize with for this project.
 
 ## gstreamer_client
+
+Here are edited versions of Ronnies gstreamer pipeline (G_CLIENT). Should have same dependencies.
 
 useful things to know about gstreamer:
 
